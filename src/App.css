@@ -11,17 +11,23 @@ body {
 
 .App {
   text-align: center;
+  position: relative;
 }
 
 .main-heading {
-  font-size: 48px;
-  margin-top: 30px;
+  color: teal;
+  font-size: 24px;
+  position: absolute;
+  top: -18px;
+  left: 10px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .content {
   width: 50vw;
   margin: 50px auto;
-  border: 2px solid red;
+  box-shadow: 0 0 10px teal;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -29,12 +35,13 @@ body {
 }
 
 .prompt-box {
-  background-color: thistle;
+  background-color: rgb(111, 165, 165);
   color: black;
   padding: 0.5rem;
   font-size: 25px;
   letter-spacing: 1.5px;
   font-weight: 600;
+  border-radius: 3px;
 }
 
 .typing-box>input {
@@ -43,7 +50,7 @@ body {
   text-align: center;
   padding: 0.5rem;
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .score {
@@ -55,9 +62,27 @@ body {
 
 .timer {
   width: 100px;
-  margin: 20px auto;
-  background-color: rgb(193, 222, 233);
-  color: black;
+  margin: 30px auto 20px;
+  background-color: rgb(103, 4, 4);
+  color: white;
   padding: 20px;
   border-radius: 50%;
 }
+
+.timer-buttons>button {
+  background-color: teal;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  margin: 0px 10px;
+}
+
+.modal-content {
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 2rem;
+}
+
