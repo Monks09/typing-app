@@ -23,14 +23,9 @@ body {
   margin: 50px auto;
   border: 2px solid red;
   padding: 30px;
-}
-
-.prompt {
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  text-align: center;
-  color: black;
+  gap: 40px;
 }
 
 .prompt-box {
@@ -42,7 +37,7 @@ body {
   font-weight: 600;
 }
 
-#user-text {
+.typing-box>input {
   width: 100%;
   color: black;
   text-align: center;
@@ -55,5 +50,14 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 20px;
+}
+
+.timer {
+  width: 100px;
+  margin: 20px auto;
+  background-color: rgb(193, 222, 233);
+  color: black;
+  padding: 20px;
+  border-radius: 50%;
 }
