@@ -93,7 +93,7 @@ function Timer(props) {
   let seconds = timerValue % 60;
 
   //   stopping the timer when it reaches 5 minutes
-  if (minutes === 1) {
+  if (minutes === 5) {
     endGame();
   }
 
@@ -107,7 +107,7 @@ function Timer(props) {
         color={"white"}
         onClick={!timerId ? startGame : endGame}
       >
-        {!timerId ? "Start Game" : "End Game"}
+        {!timerId ? "Start" : "End"}
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
