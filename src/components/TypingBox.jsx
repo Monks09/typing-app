@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { generatePromptThunkActionCreator } from "../redux/action";
+import { Howl, Howler } from "howler";
+import errorSound from "../sounds/error.wav";
+import typingSound from "../sounds/keypress.wav";
 
 function TypingBox(props) {
   const [keysPressed, setKeysPressed] = useState(0);
@@ -30,6 +33,24 @@ function TypingBox(props) {
     });
   });
 
+  const soundObj1 = {
+    sound: errorSound,
+    label: "errorSound",
+  };
+
+  const soundObj2 = {
+    sound: typingSound,
+    label: "typingSound",
+  };
+
+  let soundPlay = (src) => {
+    const sound = new Howl({
+      src,
+      volume: 0.2,
+    });
+    sound.play();
+  };
+
   const checkInput = (e) => {
     setKeysPressed(keysPressed + 1);
     const input = e.target.value;
@@ -42,10 +63,12 @@ function TypingBox(props) {
     if (input !== prompt.substr(0, input.length)) {
       setTypos(typos + 1);
       setError(true);
+      soundPlay(soundObj1.sound);
     }
 
     if (input === prompt.substr(0, input.length)) {
       setError(false);
+      soundPlay(soundObj2.sound);
     }
 
     // if input matches completely with prompt then calculate score and generate new prompt

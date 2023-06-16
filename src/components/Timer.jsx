@@ -13,6 +13,9 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { generatePromptThunkActionCreator } from "../redux/action";
+import { Howl, Howler } from "howler";
+import startSound from "../sounds/start.wav";
+import endSound from "../sounds/end.wav";
 
 function Timer(props) {
   const [timerId, setTimerId] = useState();
@@ -47,6 +50,24 @@ function Timer(props) {
     payload: timer,
   });
 
+  const soundObj1 = {
+    sound: startSound,
+    label: "startSound",
+  };
+
+  const soundObj2 = {
+    sound: endSound,
+    label: "endSound",
+  };
+
+  let soundPlay = (src) => {
+    const sound = new Howl({
+      src,
+      volume: 0.5,
+    });
+    sound.play();
+  };
+
   async function startGame() {
     // generating the prompt for the first time
     await dispatch(generatePromptThunkActionCreator());
@@ -63,12 +84,17 @@ function Timer(props) {
 
     setTimerId(id);
     focusTypingBox();
+    soundPlay(soundObj1.sound);
   }
 
   function endGame() {
     clearInterval(timerId);
     setTimerId(undefined);
+    soundPlay(soundObj2.sound);
     onOpen();
+    dispatch({
+      type: "END_GAME",
+    });
   }
 
   function resetGame() {
@@ -106,8 +132,8 @@ function Timer(props) {
   }
 
   //   converting timerValue to minutes and seconds
-  let minutes = Math.floor(timerValue / 60);
-  let seconds = timerValue % 60;
+  let minutes = Math.floor(timer / 60);
+  let seconds = timer % 60;
 
   //   stopping the timer when it reaches 5 minutes
   if (minutes === 5) {
@@ -129,7 +155,7 @@ function Timer(props) {
             {!timerId ? "Start" : "End"}
           </Button>
           <Button bgColor={"teal"} color={"white"} onClick={resetGame}>
-            Reset
+            Reset Score
           </Button>
         </div>
       </div>

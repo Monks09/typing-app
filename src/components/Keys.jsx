@@ -10,10 +10,6 @@ function Keys(props) {
     return store.active_index;
   });
 
-  console.log(currentPrompt);
-  console.log(activeIndex);
-  console.log(currentPrompt[activeIndex]);
-
   return (
     <div className="keys">
       <div className={currentPrompt[activeIndex] === "a" ? "active" : ""}>

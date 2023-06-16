@@ -55,7 +55,10 @@ function reducer(state = initialState, action) {
                 timer_value: action.payload,
             }
         case "RESET_SCORE":
-            return initialState;
+            return {
+                ...initialState,
+                focusTypingBox: state.focusTypingBox,
+            }
         case "SET_FOCUS_FUNCTION":
             return {
                 ...state,
@@ -71,6 +74,13 @@ function reducer(state = initialState, action) {
                 ...state,
                 user_text: action.payload,
             }
+        case "END_GAME":
+            return {
+                ...state,
+                current_prompt: "Hi Buddy!",
+                user_text: "",
+            }
+
         default:
             return state;
     }
