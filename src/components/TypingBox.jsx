@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { generatePromptThunkActionCreator } from "../redux/action";
 
@@ -6,6 +6,12 @@ function TypingBox(props) {
   const [keysPressed, setKeysPressed] = useState(0);
   const [error, setError] = useState(false);
   const [typos, setTypos] = useState(0);
+
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    inputRef.current.focus();
+  };
 
   const prompt = useSelector((store) => {
     return store.current_prompt;
@@ -17,9 +23,21 @@ function TypingBox(props) {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch({
+      type: "SET_FOCUS_FUNCTION",
+      payload: handleClick,
+    });
+  });
+
   const checkInput = (e) => {
     setKeysPressed(keysPressed + 1);
     const input = e.target.value;
+
+    dispatch({
+      type: "SET_USER_TEXT",
+      payload: input,
+    });
 
     if (input !== prompt.substr(0, input.length)) {
       setTypos(typos + 1);
@@ -51,6 +69,7 @@ function TypingBox(props) {
   return (
     <div className="typing-box">
       <input
+        ref={inputRef}
         type="text"
         name="user-text"
         id="user-text"
@@ -61,7 +80,7 @@ function TypingBox(props) {
             ? "You can type once you click start"
             : "Type given prompt here..."
         }
-        disabled={timerValue === 0}
+        disabled={prompt === "Hi Buddy!"}
       />
     </div>
   );

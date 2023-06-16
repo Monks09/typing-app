@@ -36,6 +36,10 @@ function Timer(props) {
     return store.total_words_count;
   });
 
+  let focusTypingBox = useSelector((store) => {
+    return store.focusTypingBox;
+  });
+
   const dispatch = useDispatch();
 
   dispatch({
@@ -43,25 +47,38 @@ function Timer(props) {
     payload: timer,
   });
 
-  function startGame() {
+  async function startGame() {
+    // generating the prompt for the first time
+    await dispatch(generatePromptThunkActionCreator());
+
+    // setting the active index as 0
+    dispatch({
+      type: "SET_ACTIVE_INDEX",
+      payload: 0,
+    });
+
     let id = setInterval(() => {
       setTimer((prev) => prev + 1);
     }, 1000);
 
     setTimerId(id);
-    setTimer(0);
-
-    dispatch({
-      type: "START_NEW_GAME",
-    });
-
-    dispatch(generatePromptThunkActionCreator());
+    focusTypingBox();
   }
 
   function endGame() {
     clearInterval(timerId);
     setTimerId(undefined);
     onOpen();
+  }
+
+  function resetGame() {
+    clearInterval(timerId);
+    setTimerId(undefined);
+    setTimer(0);
+
+    dispatch({
+      type: "RESET_SCORE",
+    });
   }
 
   function getOverallAccuracy() {
@@ -98,17 +115,24 @@ function Timer(props) {
   }
 
   return (
-    <div>
-      <div className="timer">
-        <span>{`${minutes} : ${seconds}`}</span>
+    <div className="timer-comp">
+      <div className="timer-box">
+        <div className="timer">
+          <span>{`${minutes} : ${seconds}`}</span>
+        </div>
+        <div className="timer-buttons">
+          <Button
+            bgColor={"teal"}
+            color={"white"}
+            onClick={!timerId ? startGame : endGame}
+          >
+            {!timerId ? "Start" : "End"}
+          </Button>
+          <Button bgColor={"teal"} color={"white"} onClick={resetGame}>
+            Reset
+          </Button>
+        </div>
       </div>
-      <Button
-        bgColor={"teal"}
-        color={"white"}
-        onClick={!timerId ? startGame : endGame}
-      >
-        {!timerId ? "Start" : "End"}
-      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

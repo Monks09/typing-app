@@ -1,5 +1,7 @@
 const initialState = {
-    current_prompt: "",
+    current_prompt: "Hi Buddy!",
+    user_text: "",
+    active_index: 0,
     total_words_count: 0,
     timer_value: 0,
     prev_timer_value: 0,
@@ -7,6 +9,7 @@ const initialState = {
     total_keys_pressed: 0,
     total_typos: 0,
     accuracy: 0,
+    focusTypingBox: null,
 }
 
 function reducer(state = initialState, action) {
@@ -51,8 +54,23 @@ function reducer(state = initialState, action) {
                 ...state,
                 timer_value: action.payload,
             }
-        case "START_NEW_GAME":
+        case "RESET_SCORE":
             return initialState;
+        case "SET_FOCUS_FUNCTION":
+            return {
+                ...state,
+                focusTypingBox: action.payload,
+            }
+        case "SET_ACTIVE_INDEX":
+            return {
+                ...state,
+                active_index: action.payload,
+            }
+        case "SET_USER_TEXT":
+            return {
+                ...state,
+                user_text: action.payload,
+            }
         default:
             return state;
     }
