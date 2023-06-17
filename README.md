@@ -25,7 +25,7 @@ Go to http://localhost:3000 to see the running web application.
 
 - A timer to measure your typing speed and proficiency.
 
-- Automatically generated prompt using the letters " _a , s, d, f, j, k, l, ;_ "
+- Automatically generated prompt using the letters _'a' , 's', 'd', 'f', 'j', 'k', 'l', ';'_ .
 
 - Insightful stats such as typing speed(wpm), total keys pressed and accuracy %, which are updated after every prompt.
 
