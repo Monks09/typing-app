@@ -21,7 +21,7 @@ Go to http://localhost:3000 to see the running web application.
 
 ## Features of the app
 
-- Elegant UI which is easy to use and pleasant to the UI
+- Nice and Elegant UI which is pleasant to the eyes as well as easy to interact with.
 
 - A timer to measure your typing speed and proficiency.
 
